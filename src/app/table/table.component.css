@@ -1,0 +1,53 @@
+.btnCol{
+  margin-bottom: 10px;
+}
+
+
+#btnFind
+{
+  /* position: absolute; */
+  /* top:5px; */
+  /* left:12px; */
+  font-size:12px;
+  z-index: 100;
+  margin-right: 10px;
+}
+
+#btnUpload
+{
+  /* position: absolute; */
+  /* top:5px; */
+  /* left:85px; */
+  font-size:12px;
+  z-index: 100;
+}
+/*.box-body button:hover{*/
+  /*cursor: pointer;*/
+/*}*/
+
+thead .sorting{
+  cursor: pointer;
+}
+
+thead i{
+  margin-left:5px;
+}
+
+.mr_left{
+  margin-left: 260px;
+}
+
+.fileinput-button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.fileinput-button input{
+  position:absolute;
+  right: 0px;
+  top: 0px;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 150px;
+}

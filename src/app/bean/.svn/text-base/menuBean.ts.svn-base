@@ -1,0 +1,6 @@
+export class MenuBean {
+	menuid:String;
+	menuname:String;
+	menuurl:String;
+	menuitem:Array<MenuBean>;
+}

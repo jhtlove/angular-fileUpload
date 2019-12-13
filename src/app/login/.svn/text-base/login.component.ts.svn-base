@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { LoginBean } from '../bean/loginBean';
+import { CxBean } from '../bean/CxBean';
+import { HiswsService } from '../hisws/hisws.service';
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  hero: LoginBean;
+  constructor(private hiswsService:HiswsService) {}
+
+  ngOnInit() {
+  	var sign=localStorage.getItem("ygxm");
+  	this.hero=new LoginBean();
+  	this.hero.id=localStorage.getItem("ygid");
+		this.hero.name=localStorage.getItem("ygxm");
+  }
+  funLogin():void{
+  	localStorage.setItem('ygid', "2563");
+  	localStorage.setItem('ygxm', "刘响光");
+  	this.hiswsService.appselect().subscribe();
+  }
+	fungetHeroes(): void {
+		//this.hiswsService.appselect().subscribe();
+	}
+}

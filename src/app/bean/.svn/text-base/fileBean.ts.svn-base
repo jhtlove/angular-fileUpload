@@ -1,0 +1,9 @@
+export class FileBean {
+	id:String;
+	swjm:String;
+	spath:String;
+	wjdx:String;
+	wjlx:String;
+	stitle:String;
+	scrq:String;
+}

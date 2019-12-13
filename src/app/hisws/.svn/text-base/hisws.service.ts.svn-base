@@ -1,0 +1,77 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders,HttpErrorResponse} from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { CxBean } from '../bean/CxBean';
+import { SaveOutputBean } from '../bean/SaveOutputBean';
+import { LoginBean } from '../bean/LoginBean';
+import { FileBean } from '../bean/FileBean';
+import { MenuBean } from '../bean/MenuBean';
+import { FileContent } from '../bean/FileContent';
+import { Router } from '@angular/router';
+const httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+@Injectable({
+  providedIn: 'root'
+})
+export class HiswsService {
+	//
+	private wsurl= 'http://192.168.81.131:8080/EzaRest/';	
+  constructor(
+  	private http:HttpClient,
+  	private router:Router){}
+		public loginws(loginBean:LoginBean): Observable<SaveOutputBean> {
+			console.log("调用login服务");
+	  	return this.http.post<SaveOutputBean>(this.wsurl+'login/02446.do',loginBean,httpOptions).pipe(
+	    	tap((saveBean:SaveOutputBean)=>{
+	    			console.log(saveBean);
+	   			}),
+	    		catchError(this.handleError<any>('loginws'))
+	  	);
+		}
+		public grwjfilews(): Observable<FileBean[]> {
+			console.log("调用WS服务");
+	    return this.http.get<FileBean[]>(this.wsurl+'grwj/selectWjml.do')
+	    .pipe(
+	    	tap(
+	    		 data => {
+	    		 	console.log("返回结果是");
+	    		 	console.log(data);
+	    		 }
+	    	)
+	    );
+		}
+		public getwjnrws(spath:String): Observable<FileContent> {
+			let lurl=this.wsurl+'grwj/'+spath+'.do';
+			console.log("调用WS服务:"+lurl);
+	    return this.http.get<FileContent>(lurl,)
+	    .pipe(
+	    	tap(
+	    		 data => {
+	    		 	console.log("返回结果是");
+	    		 	console.log(data);
+	    		 }
+	    	)
+	    );
+		}
+		public menuws(ygid:String): Observable<MenuBean[]> {
+			let lurl=this.wsurl+'login/getMenu/'+ygid+'.do';
+			console.log("调用WS服务:"+lurl);
+	    return this.http.get<MenuBean[]>(lurl)
+	    .pipe(
+	    	tap(
+	    		 data => {
+	    		 	console.log("返回结果是");
+	    		 	console.log(data);
+	    		 }
+	    	)
+	    );
+		}
+		private handleError<T>(operation = 'operation', result?:T) {
+			console.log("错误处理");
+	    return (error: any): Observable<T> => {
+					console.error(error);
+					console.log('${operation} failed: ${error.message}');
+					return of(result as T);
+	    };
+	 	}
+}

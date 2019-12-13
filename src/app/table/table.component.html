@@ -1,0 +1,101 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1 *ngIf="head">
+    {{head}}
+    <small *ngIf="subhead">{{subhead}}</small>
+  </h1>
+  <!--<ol class="breadcrumb">-->
+  <!--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>-->
+  <!--<li class="active">Here</li>-->
+  <!--</ol>-->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <!--------------------------
+      | Your Page Content Here |
+      -------------------------->
+  <div class="box">
+    <div class="box-body">
+      <div class="btnCol">
+        <button style="font-size:14px" id="btnFind" class="btn btn-info" (click)="find()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          查询
+        </button>
+        <!-- <button id="btnUpload" class="btn btn-info" data-toggle="modal" data-target="#myModal"> -->
+        <span class="btn btn-info fileinput-button">
+          <span>
+            <i class="fa fa-upload" aria-hidden="true"></i>
+            上传
+          </span>
+          <input #myinput type="file" id="upfile" class="fileinput-button" (change)="upload(myinput.files,this.tableService)">
+        </span>
+      </div>
+
+      <!-- 表格 -->
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"></h3>
+
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" [formControl]="fileFilterControl" class="form-control pull-right"
+                placeholder="文件名">
+
+              <div class="input-group-btn">
+                <div class="btn btn-default" style="cursor:default">
+                  <i class="fa fa-search"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <!-- 用循环写就不行？表头竖排 -->
+              <!-- <tr *ngFor="let col of cols">
+                    <th>{{col.header}}</th>
+                  </tr> -->
+              <tr>
+                <th>序号</th>
+                <th>下载</th>
+                <th>文件名</th>
+                <!-- <th>标题</th> -->
+                <th class="sorting">上传日期<a (click)="toggle('scrq')"><i [class]="sortClass"></i></a></th>
+                <th>大小</th>
+                <!-- <th>文件类型</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let file of files | fileFilter: 'swjm': keyWord | fileSort: sortField: isAsc; let i=index">
+                <td>{{i+1}}</td>
+                <td (click)="download(file.spath,file.swjm)">
+                  <a style="font-size:16px"><i class="fa fa-download"></i>下载</a>
+                </td>
+                <td>{{file.swjm}}</td>
+                <!-- <td>{{file.stitle}}</td> -->
+                <td>{{file.scrq}}</td>
+                <td>{{(file.wjdx / 1024).toFixed(2)}}KB </td>
+                <!-- <td>{{file.wjlx}}</td> -->
+           
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<!-- /.content -->
+
+<!-- 模态框 -->
+<app-modal-box modalTitle="文件上传">
+  <app-file-input class="fileInput"></app-file-input>
+</app-modal-box>

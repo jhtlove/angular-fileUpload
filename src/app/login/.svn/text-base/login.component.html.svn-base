@@ -1,0 +1,11 @@
+<div>
+	<span>用户名: </span>
+	<input [(ngModel)]="hero.id" placeholder="id">
+</div>
+<div>
+	<span>密码: </span>
+	<input [(ngModel)]="hero.name" placeholder="name">
+</div>
+<button (click)="funLogin()">login</button>
+
+  
